@@ -1,6 +1,4 @@
 #!/bin/sh
-set -e
-
 ### BEGIN INIT INFO
 # Provides:          docker
 # Required-Start:    $syslog $remote_fs
@@ -17,8 +15,6 @@ set -e
 #  VMs, bare metal, OpenStack clusters, public clouds and more.
 ### END INIT INFO
 
-export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
-
 NAME=$(basename $(readlink -f "$0"))
 DAEMON=/usr/sbin/dockerd
 # This is the pid file managed by docker itself
@@ -29,18 +25,14 @@ DOCKER_LOGFILE=/var/log/$NAME.log
 DOCKER_OPTS=
 DOCKER_DESC="Docker"
 
-# Get lsb functions
-. /lib/lsb/init-functions
+# Exit if executable is not installed
+[ -x "$DAEMON" ] || exit 0
 
-if [ -f /etc/default/$NAME ]; then
-	. /etc/default/$NAME
-fi
+# Read configuration variable file if it is present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
 
-# Check docker is present
-if [ ! -x $DAEMON ]; then
-	log_failure_msg "$DAEMON not present or not executable"
-	exit 1
-fi
+# Define LSB log_* functions.
+. /lib/lsb/init-functions || exit 1
 
 fail_unless_root() {
 	if [ "$(id -u)" != '0' ]; then
@@ -68,12 +60,14 @@ case "$1" in
 		fi
 
 		log_begin_msg "Starting $DOCKER_DESC: $NAME"
-		start-stop-daemon --start --background \
+		$0 status >>/dev/null \
+		|| start-stop-daemon --start --background \
 			--no-close \
 			--exec "$DAEMON" \
 			--pidfile "$DOCKER_SSD_PIDFILE" \
 			--make-pidfile \
 			-- \
+				-l debug \
 				-p "$DOCKER_PIDFILE" \
 				$DOCKER_OPTS \
 					>> "$DOCKER_LOGFILE" 2>&1
