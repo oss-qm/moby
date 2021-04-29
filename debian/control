@@ -1,0 +1,12 @@
+Source: moby-engine
+Section: unknown
+Priority: optional
+Maintainer: Enrico Weigelt <info@metux.net>
+Build-Depends: debhelper (>=11~), golang-any (>=1.15~), pkg-config, libbtrfs-dev, libdevmapper-dev
+Standards-Version: 4.1.4
+
+Package: moby-engine
+Architecture: any
+Multi-Arch: foreign
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: runtime engine for docker

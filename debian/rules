@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+export DH_VERBOSE = 1
+
+#GOVERSION=1.14
+#GO=/usr/lib/go-$(GOVERSION)/bin/go
+
+export GOFLAGS=-buildvcs=false
+export GO_BUILD_TAGS=no_systemd
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	dh_auto_build -- -f Makefile.standalone
+
+override_dh_auto_install:
+	dh_auto_install -- -f Makefile.standalone
+
+override_dh_auto_clean:
+	dh_auto_clean -- -f Makefile.standalone
+
+override_dh_installinit:
+	dh_installinit --onlyscripts
+
+override_dh_auto_test:
+	: # do nothing

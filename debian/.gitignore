@@ -1,0 +1,6 @@
+/.debhelper
+/debhelper-build-stamp
+/files
+*.log
+/moby-engine.substvars
+/moby-engine/
