@@ -40,7 +40,7 @@ clean:
 	rm -Rf $(CURDIR)/vendor/modules.txt $(CURDIR)/go.mod $(CURDIR)/tmp
 
 install: compile
-	$(INSTALL) -D -m644 $(CURDIR)/contrib/udev/80-docker.rules        $(DESTDIR)/lib/udev/rules.d
+	$(INSTALL) -D -m644 $(CURDIR)/contrib/udev/80-docker.rules        $(DESTDIR)/lib/udev/rules.d/80-docker.rules
 	$(INSTALL) -D -m755 $(CURDIR)/contrib/init/sysvinit-debian/docker $(DESTDIR)/etc/init.d/docker
 	$(INSTALL) -D -m755 $(EXEC_OUT)                                   $(DESTDIR)/$(SBINDIR)/$(EXEC_NAME)
 	$(LN_S) $(EXEC_NAME) $(DESTDIR)/$(SBINDIR)/dockerd
