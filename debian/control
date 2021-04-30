@@ -1,4 +1,4 @@
-Source: moby
+Source: docker-engine
 Section: unknown
 Priority: optional
 Maintainer: Enrico Weigelt <info@metux.net>
@@ -6,7 +6,7 @@ Build-Depends: debhelper (>=11~)
 Standards-Version: 4.1.4
 Homepage: <insert the upstream URL, if relevant>
 
-Package: moby
+Package: docker-engine
 Architecture: any
 Multi-Arch: foreign
 Depends: ${misc:Depends}, ${shlibs:Depends}

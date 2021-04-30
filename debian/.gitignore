@@ -2,5 +2,5 @@
 /debhelper-build-stamp
 /files
 *.log
-/moby.substvars
-/moby/
+/docker-engine.substvars
+/docker-engine/
