@@ -1,7 +1,7 @@
 
 ## path configuration (FHS-style)
+## FIXME !!!
 PREFIX ?= /opt/docker
-#PREFIX ?= $(HOME)/docker-install
 BINDIR ?= $(PREFIX)/bin
 SBINDIR ?= $(PREFIX)/sbin
 
