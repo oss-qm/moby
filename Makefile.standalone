@@ -35,16 +35,21 @@ $(CURDIR)/go.mod:
 #	$(GO) mod tidy
 #	$(GO) mod vendor
 
-$(CURDIR)/vendor/modules.txt:
-	touch $@
+#$(CURDIR)/vendor/modules.txt:
+#	touch $@
 
 #$(EXEC_OUT): $(CURDIR)/go.mod $(CURDIR)/vendor/modules.txt
 $(EXEC_OUT):
 #	$(GO) build -ldflags "$(LDFLAGS)" -mod=vendor -o $@ $(CURDIR)/cmd/dockerd
-	$(GO) build -ldflags "$(LDFLAGS)" -o $@ $(CURDIR)/cmd/dockerd
+#	GOPATH=$(PWD) strace -f $(GO) build -ldflags "$(LDFLAGS)" -o $@ ./cmd/dockerd/
+#	( rm -f vendor/github.com/docker/docker ; cd vendor/github.com/docker ; ln -sf ../../../ docker )
+#	GOPATH=$(PWD) $(GO) build -ldflags "$(LDFLAGS)" -o $@ ./cmd/dockerd/
+	( cd src && $(GO) build -ldflags "$(LDFLAGS)" -o $@ cmd/dockerd/dockerd.go )
 
 clean:
-	rm -Rf $(CURDIR)/vendor/modules.txt $(CURDIR)/go.mod $(CURDIR)/tmp
+	echo
+#	rm -Rf $(CURDIR)/vendor/modules.txt $(CURDIR)/go.mod $(CURDIR)/tmp
+#	rm -f vendor/github.com/docker/docker
 
 install: compile
 	$(INSTALL) -D -m644 $(CURDIR)/contrib/udev/80-docker.rules        $(DESTDIR)/lib/udev/rules.d/80-docker.rules
