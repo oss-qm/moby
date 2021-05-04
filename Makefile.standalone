@@ -21,6 +21,9 @@ BUILD_GO_OS := $(shell $(GO) env GOOS)
 EXEC_NAME=dockerd-$(BUILD_GO_OS)-$(BUILD_GO_ARCH)
 EXEC_OUT=$(BUILD_OUT)/$(EXEC_NAME)
 
+# make sure it fails ...
+export GOPATH=/proc/gopath
+
 all: compile
 
 compile: $(EXEC_OUT)
