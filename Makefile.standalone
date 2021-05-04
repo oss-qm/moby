@@ -32,6 +32,8 @@ compile: $(EXEC_OUT)
 ## generate go.mod in order to use simpler module build mode
 $(CURDIR)/go.mod:
 	$(GO) mod init
+	$(GO) mod tidy
+	$(GO) mod vendor
 
 $(CURDIR)/vendor/modules.txt:
 	touch $@
