@@ -1,3 +1,5 @@
+// +build unix,!no_systemd
+
 /*
    Copyright The containerd Authors.
 
