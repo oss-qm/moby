@@ -1,7 +1,6 @@
 package configs
 
 import (
-	systemdDbus "github.com/coreos/go-systemd/v22/dbus"
 	"github.com/opencontainers/runc/libcontainer/devices"
 )
 
@@ -12,34 +11,6 @@ const (
 	Frozen    FreezerState = "FROZEN"
 	Thawed    FreezerState = "THAWED"
 )
-
-type Cgroup struct {
-	// Deprecated, use Path instead
-	Name string `json:"name,omitempty"`
-
-	// name of parent of cgroup or slice
-	// Deprecated, use Path instead
-	Parent string `json:"parent,omitempty"`
-
-	// Path specifies the path to cgroups that are created and/or joined by the container.
-	// The path is assumed to be relative to the host system cgroup mountpoint.
-	Path string `json:"path"`
-
-	// ScopePrefix describes prefix for the scope name
-	ScopePrefix string `json:"scope_prefix"`
-
-	// Paths represent the absolute cgroups paths to join.
-	// This takes precedence over Path.
-	Paths map[string]string
-
-	// Resources contains various cgroups settings to apply
-	*Resources
-
-	// SystemdProps are any additional properties for systemd,
-	// derived from org.systemd.property.xxx annotations.
-	// Ignored unless systemd is used for managing cgroups.
-	SystemdProps []systemdDbus.Property `json:"-"`
-}
 
 type Resources struct {
 	// Devices is the set of access rules for devices in the container.
